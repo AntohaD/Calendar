@@ -1,0 +1,27 @@
+.time-component {
+  width: 50px;
+  height: 100%;
+  z-index: 1;
+
+  &__big-time {
+    font-family: 'Open Sans';
+    font-weight: 200;
+    font-size: 16px;
+    padding-bottom: 6px;
+
+    &::before {
+      content: '';
+      height: 1px;
+      width: 250px;
+      background: #eae9e9;
+      display: block;
+    }
+  }
+
+  &__small-time {
+    font-family: 'Open Sans';
+    font-weight: 200;
+    font-size: 12px;
+    padding-bottom: 14px;
+  }
+}
