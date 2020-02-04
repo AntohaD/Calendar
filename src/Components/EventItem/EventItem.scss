@@ -1,6 +1,6 @@
 .eventItem {
   position: absolute;
-  width: 198px;
+  width: 200px;
   background-color: #E2ECF5;
   border-left: 2px solid #6E9ECF;
   z-index: 2;
@@ -16,13 +16,13 @@
 
   &__first {
     @extend .eventItem;
-    width: 98px;
+    width: 100px;
     left: 0;
   }
 
   &__second {
     @extend .eventItem;
-    width: 98px;
+    width: 100px;
     left: 100px;
   }
 

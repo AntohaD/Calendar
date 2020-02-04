@@ -5,6 +5,7 @@
   max-width: 600px;
   border-radius: 5px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+  position: relative;
 
   @media (max-width: 380px) {
     padding: 10px 0px;
@@ -12,6 +13,7 @@
 
   &__title {
     color: #545353;
+    padding: 10px 0;
 
     &::after {
       content: '';
@@ -26,5 +28,24 @@
   &__table {
     width: 250px;
     display: inline-flex;
+  }
+
+  &__button {
+    background: #53a753;
+    height: 50px;
+    width: 50px;
+    border-radius: 50%;
+    border: none;
+    color: white;
+    position: absolute;
+    bottom: 15px;
+    right: 15px;
+    z-index: 1;
+    box-shadow: 0 0 10px 1px rgba(17, 61, 66, 0.5);
+    cursor: pointer;
+
+    &:focus {
+      outline: none;
+    }
   }
 }

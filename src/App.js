@@ -1,5 +1,6 @@
 import React from 'react';
 import MainPage from './Pages/MainPage/MainPage';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 import './App.scss';
 
