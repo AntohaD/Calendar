@@ -1,29 +1,41 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import { useSelector, useDispatch } from "react-redux";
+
+import GeneralActions from "../../store/actions/general/actions";
 import EventItem from '../EventItem/EventItem';
-import { EventData } from "../../Data/";
 
 import './EventComponent.scss';
 
 function EventComponent() {
-  function sort(arr) {
-    arr.sort((a, b) => (a.startTime > b.startTime ? 1 : -1));
-  }
+  const dispatch = useDispatch();
+  const state = useSelector(state => ({ general: state.general }));
 
-  sort(EventData.event);
+  const [eventList, setEventList] = useState(state.general.eventList);
+
+  useEffect(() => {
+    dispatch(GeneralActions.getEventList());
+    setEventList(state.general.eventList);
+  }, [state.general.eventList]);
+
+  // function sort(arr) {
+  //   arr.sort((a, b) => (a.startTime > b.startTime ? 1 : -1));
+  // }
+
+  // sort(eventList);
 
   return (
     <div className="eventComponent">
-      {EventData.event.map(item => {
+      {eventList.map(item => {
         return (
           <div key={item.id}>
-            <EventItem 
+            <EventItem
               startTime={item.startTime}
               endTime={item.endTime}
               text={item.text}
               index={item.index}
             />
           </div>
-        )
+        );
       })}
     </div>
   );

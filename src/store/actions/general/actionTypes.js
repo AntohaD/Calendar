@@ -1,0 +1,5 @@
+export default {
+  ADD_EVENT: "ADD_EVENT",
+  GET_EVENT_LIST: "GET_EVENT_LIST",
+  ADD_EVENT_LIST: "ADD_EVENT_LIST",
+};

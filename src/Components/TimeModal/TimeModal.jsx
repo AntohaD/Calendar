@@ -1,7 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
+
+import GeneralActions from "../../store/actions/general/actions";
 import { TimeData, EventData } from '../../Data/';
 import Convert from '../../Helpers/Convert';
 
@@ -9,52 +12,36 @@ import Convert from '../../Helpers/Convert';
 import './TimeModal.scss';
 
 function TimeModal(props) {
-  const [description, setDescription] = useState('');
-  const [startHours, setStartHours] = useState(0);
-  const [startMinutes, setStartMinutes] = useState(0);
-  const [endHours, setEndHours] = useState(0);
-  const [endMinutes, setEndMinutes] = useState(0);
+  const dispatch = useDispatch();
+  const state = useSelector(state => ({ general: state.general }));
+
+  // const [description, setDescription] = useState('');
+  // const [startHours, setStartHours] = useState(0);
+  // const [startMinutes, setStartMinutes] = useState(0);
+  // const [endHours, setEndHours] = useState(0);
+  // const [endMinutes, setEndMinutes] = useState(0);
   const [startTime, setStartTime] = useState(0);
   const [endTime, setEndTime] = useState(0);
 
-  function addEvent(e) {
-    e.preventDefault();
-    setDescription(document.getElementById('description').value);
-    setStartHours(parseInt(document.getElementById('startHours').value));
-    setStartMinutes(parseInt(document.getElementById('startMinutes').value));
-    setEndHours(parseInt(document.getElementById('endHours').value));
-    setEndMinutes(parseInt(document.getElementById('endMinutes').value));
+  function addEvent() {
+    const description = document.getElementById('description').value;
+    const startHours = parseInt(document.getElementById('startHours').value);
+    const startMinutes = parseInt(document.getElementById('startMinutes').value);
+    const endHours = parseInt(document.getElementById('endHours').value);
+    const endMinutes = parseInt(document.getElementById('endMinutes').value);
 
-    props.onHide();     
+    dispatch(
+      GeneralActions.getInputValue(
+        description,
+        startHours,
+        startMinutes,
+        endHours,
+        endMinutes
+      )
+    );
+
+    props.onHide();
   };
-
-  useEffect(() => {
-    setDescription(description);
-    setStartHours(startHours);
-    setStartMinutes(startMinutes);
-    setEndHours(endHours);
-    setEndMinutes(endMinutes);
-
-    setStartTime(Convert.convertHours(startHours));
-    setEndTime(Convert.convertHours(endHours));
-
-    addDate(startTime, endTime);
-
-  },[description, startHours, startMinutes, endHours, endMinutes, startTime, endTime]);
-
-  function addDate(startTime, endTime) {
-    if (endTime > 0) {
-      EventData.event.push({
-        id: 1234,
-        startTime: startTime,
-        endTime: endTime,
-        text: description,
-        index: 1
-      });
-    }
-
-    console.log(EventData.event);
-  }
 
   return (
     <Modal
@@ -71,7 +58,7 @@ function TimeModal(props) {
       <Modal.Body>
         <Form.Label>Start event</Form.Label>
         <Form.Row>
-          <Form.Group controlId="StartEvent">
+          <Form.Group>
           <Form.Label>Hours</Form.Label>
             <Form.Control
               as="select"
@@ -80,7 +67,7 @@ function TimeModal(props) {
             >
               {TimeData.time.map(time => {
                 return (
-                  <option>{time.time}</option>
+                  <option key={time.time}>{time.time}</option>
                 )
               })}
             </Form.Control>
@@ -93,16 +80,14 @@ function TimeModal(props) {
               id="startMinutes"
             >
               {TimeData.minutes.map(minute => {
-                return (
-                  <option>{minute}</option>
-                )
+                return <option key={minute}>{minute}</option>;
               })}
             </Form.Control>
           </Form.Group>
         </Form.Row>
         <Form.Label>End event</Form.Label>
         <Form.Row>
-          <Form.Group controlId="EndEvent">
+          <Form.Group>
           <Form.Label>Hours</Form.Label>
             <Form.Control
               as="select"
@@ -110,9 +95,7 @@ function TimeModal(props) {
               id="endHours"
             >
               {TimeData.time.map(time => {
-                return (
-                  <option>{time.time}</option>
-                )
+                return <option key={time.time}>{time.time}</option>;
               })}
             </Form.Control>
           </Form.Group>
@@ -124,14 +107,12 @@ function TimeModal(props) {
               id="endMinutes"
             >
               {TimeData.minutes.map(minute => {
-                return (
-                  <option>{minute}</option>
-                )
+                return <option key={minute}>{minute}</option>;
               })}
             </Form.Control>
           </Form.Group>
         </Form.Row>
-        <Form.Group controlId="Description">
+        <Form.Group>
           <Form.Label>Event description</Form.Label>
           <Form.Control 
             as="textarea"
@@ -142,7 +123,7 @@ function TimeModal(props) {
         </Form.Group>
       </Modal.Body>
       <Modal.Footer>
-        <Button onClick={(e) => addEvent(e)}>Add</Button>
+        <Button onClick={() => addEvent()}>Add</Button>
       </Modal.Footer>
     </Modal>
   );
