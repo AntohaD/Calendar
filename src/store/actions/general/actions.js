@@ -56,51 +56,73 @@ function addData(startTime, endTime, description) {
           list: eventList,
         })
       } else {
-        function sort(arr) {
-          arr.sort((a, b) => (a.startTime > b.startTime ? 1 : -1));
-        }
-        sort(eventList);
+        console.log(eventList);
 
         for (let i = 0; i < eventList.length; i++) {
-          if(eventList[i].endTime > startTime && eventList[i].index === 0) {
+          if(eventList[i].endTime > startTime && eventList[i].index === 0 && endTime > eventList[i].startTime) {
             eventList[i].index = 1;
-            index = 2;       
-            
-            eventList.push({
-              id: idEvent,
-              startTime: startTime,
-              endTime: endTime,
-              text: description,
-              index: index
-            });
+            index = 2;
           } else if (
-              eventList[i].endTime > startTime 
-              && (eventList[i].index === 1)
+              (eventList[i].endTime > startTime 
+              && (eventList[i].index === 1)) || (eventList[i].endTime > startTime && (eventList[i].index === 2))
             ) {
+              index = -1;
               alert('You already have 2 events on this time');
+              break;
           } else if (
               eventList[i].endTime > startTime &&
               eventList[i].index === 2
             ) {
               index = 1;
-
-              eventList.push({
-                id: idEvent,
-                startTime: startTime,
-                endTime: endTime,
-                text: description,
-                index: index
-              });
             }
         }
 
-        dispatch({
-          type: types.ADD_EVENT_LIST,
-          list: eventList
-        });
+        if(index !== -1) {
+          eventList.push({
+            id: idEvent,
+            startTime: startTime,
+            endTime: endTime,
+            text: description,
+            index: index
+          });
+  
+          eventList.sort((a, b) => {
+            return a.startTime - b.startTime;
+          });
+  
+          dispatch({
+            type: types.ADD_EVENT_LIST,
+            list: eventList
+          });
+        }
       }
     }
   };
+}
+
+function selectEvent(id) {
+  return dispatch => {
+    dispatch({
+      type: types.SELECT_EVENT,
+      idEvent: id
+    });
+  }
+}
+
+function openModal() {
+  return dispatch => {
+    dispatch({
+      type: types.OPEN_MODAL,
+    });
+  }
+}
+
+function closeModal() {
+  return dispatch => {
+    dispatch({
+      type: types.CLOSE_MODAL,
+    });
+  }
 }
 
 
@@ -108,4 +130,7 @@ export default {
   getEventList,
   addData,
   getInputValue,
+  selectEvent,
+  openModal,
+  closeModal,
 };

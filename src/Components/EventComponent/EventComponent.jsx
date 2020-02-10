@@ -17,18 +17,13 @@ function EventComponent() {
     setEventList(state.general.eventList);
   }, [state.general.eventList]);
 
-  // function sort(arr) {
-  //   arr.sort((a, b) => (a.startTime > b.startTime ? 1 : -1));
-  // }
-
-  // sort(eventList);
-
   return (
     <div className="eventComponent">
       {eventList.map(item => {
         return (
           <div key={item.id}>
             <EventItem
+              id={item.id}
               startTime={item.startTime}
               endTime={item.endTime}
               text={item.text}

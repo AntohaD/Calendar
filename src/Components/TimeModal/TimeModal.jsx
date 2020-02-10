@@ -6,7 +6,6 @@ import Form from 'react-bootstrap/Form';
 
 import GeneralActions from "../../store/actions/general/actions";
 import { TimeData, EventData } from '../../Data/';
-import Convert from '../../Helpers/Convert';
 
 
 import './TimeModal.scss';
@@ -105,6 +104,7 @@ function TimeModal(props) {
               as="select"
               md="4"
               id="endMinutes"
+              value={45}
             >
               {TimeData.minutes.map(minute => {
                 return <option key={minute}>{minute}</option>;
@@ -119,6 +119,7 @@ function TimeModal(props) {
             rows="2"
             id="description"
             placeholder="Event description"
+            value={'text'}
           />
         </Form.Group>
       </Modal.Body>

@@ -7,6 +7,8 @@ const initialState = {
     endTime: 0,
     description: 0,
   },
+  selectEvent: 0,
+  isOpenModal: false,
 };
 
 const General = (state = initialState, action) => {
@@ -27,6 +29,12 @@ const General = (state = initialState, action) => {
       return { ...state, eventList: action.list }
     case ACTION_TYPES.ADD_EVENT_LIST:
       return { ...state, eventList: action.list }
+    case ACTION_TYPES.SELECT_EVENT:
+      return { ...state, selectEvent: action.idEvent }
+    case ACTION_TYPES.OPEN_MODAL:
+      return { ...state, isOpenModal: true }
+    case ACTION_TYPES.CLOSE_MODAL:
+      return { ...state, isOpenModal: false }
     default:
       return state;
   }
