@@ -5,6 +5,7 @@ import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 
 import GeneralActions from "../../store/actions/general/actions";
+import DataService from '../../services/DataService';
 import { TimeData, EventData } from '../../Data/';
 
 
@@ -21,6 +22,10 @@ function TimeModal(props) {
   // const [endMinutes, setEndMinutes] = useState(0);
   const [startTime, setStartTime] = useState(0);
   const [endTime, setEndTime] = useState(0);
+  const [selectId, setSelectId] = useState(state.general.selectEvent);
+  const [event, setEvent] = useState([]);
+
+  console.log(event);
 
   function addEvent() {
     const description = document.getElementById('description').value;
@@ -104,7 +109,7 @@ function TimeModal(props) {
               as="select"
               md="4"
               id="endMinutes"
-              value={45}
+              // value={45}
             >
               {TimeData.minutes.map(minute => {
                 return <option key={minute}>{minute}</option>;
@@ -119,7 +124,8 @@ function TimeModal(props) {
             rows="2"
             id="description"
             placeholder="Event description"
-            value={'text'}
+            // value={'text'}
+            // onChange={}
           />
         </Form.Group>
       </Modal.Body>

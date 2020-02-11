@@ -59,22 +59,22 @@ function addData(startTime, endTime, description) {
         console.log(eventList);
 
         for (let i = 0; i < eventList.length; i++) {
-          if(eventList[i].endTime > startTime && eventList[i].index === 0 && endTime > eventList[i].startTime) {
+          if((eventList[i].endTime > startTime && eventList[i].index === 0 && endTime > eventList[i].startTime) ||
+            (eventList[i].endTime > startTime && eventList[i].index === 1)
+            ) {
             eventList[i].index = 1;
             index = 2;
           } else if (
-              (eventList[i].endTime > startTime 
-              && (eventList[i].index === 1)) || (eventList[i].endTime > startTime && (eventList[i].index === 2))
+              eventList[i].endTime > startTime && eventList[i].index === 2
             ) {
+              index = 1;
+          } else if (i > 0) {
+            if (eventList[i-1].endTime > startTime) {
               index = -1;
               alert('You already have 2 events on this time');
               break;
-          } else if (
-              eventList[i].endTime > startTime &&
-              eventList[i].index === 2
-            ) {
-              index = 1;
             }
+          }
         }
 
         if(index !== -1) {

@@ -34,7 +34,7 @@ const General = (state = initialState, action) => {
     case ACTION_TYPES.OPEN_MODAL:
       return { ...state, isOpenModal: true }
     case ACTION_TYPES.CLOSE_MODAL:
-      return { ...state, isOpenModal: false }
+      return { ...state, isOpenModal: false, selectEvent: 0 }
     default:
       return state;
   }
