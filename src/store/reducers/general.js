@@ -7,7 +7,7 @@ const initialState = {
     endTime: 0,
     description: 0,
   },
-  selectEvent: 0,
+  selectEvent: [],
   isOpenModal: false,
 };
 

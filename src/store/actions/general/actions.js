@@ -101,10 +101,12 @@ function addData(startTime, endTime, description) {
 }
 
 function selectEvent(id) {
-  return dispatch => {
+  return async dispatch => {
+    const selectEv = await DataService.getEventById(id);
+    
     dispatch({
       type: types.SELECT_EVENT,
-      idEvent: id
+      idEvent: selectEv
     });
   }
 }

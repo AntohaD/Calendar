@@ -22,10 +22,13 @@ function TimeModal(props) {
   // const [endMinutes, setEndMinutes] = useState(0);
   const [startTime, setStartTime] = useState(0);
   const [endTime, setEndTime] = useState(0);
-  const [selectId, setSelectId] = useState(state.general.selectEvent);
-  const [event, setEvent] = useState([]);
+  const [selectEvent, setSelectEvent] = useState(state.general.selectEvent);
 
-  console.log(event);
+  useEffect(() => {
+    setSelectEvent(state.general.selectEvent);
+  }, [state.general.selectEvent]);
+
+  console.log(selectEvent);
 
   function addEvent() {
     const description = document.getElementById('description').value;

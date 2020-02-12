@@ -5,17 +5,16 @@ class DataService {
     return EventData.event;
   }
 
-  static getEventById(id) {
+  static async getEventById(id) {
+    let needEvent = [];
+
     EventData.event.map(event => {
-      let needEvent = [];
       if (event.id === id) {
         needEvent = event;
       }
-
-      console.log(needEvent);
-
       return needEvent;
-    })
+    });
+    return needEvent;
   }
 }
 
