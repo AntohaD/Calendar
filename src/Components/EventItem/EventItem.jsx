@@ -14,7 +14,7 @@ function EventItem(props) {
 
   function clickOnEvent() {
     dispatch(GeneralActions.selectEvent(id));
-    dispatch(GeneralActions.openModal());
+    dispatch(GeneralActions.openModal('editEvent'));
   }
 
   const style = () => {

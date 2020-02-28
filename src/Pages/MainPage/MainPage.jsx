@@ -27,7 +27,7 @@ function MainPage() {
       </div>
       <button
         className="main-container__button"
-        onClick={() => dispatch(GeneralActions.openModal())}
+        onClick={() => dispatch(GeneralActions.openModal('newEvent'))}
       >
         Add
       </button>

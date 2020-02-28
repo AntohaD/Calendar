@@ -9,6 +9,7 @@ const initialState = {
   },
   selectEvent: [],
   isOpenModal: false,
+  typeModal: '',
 };
 
 const General = (state = initialState, action) => {
@@ -32,9 +33,9 @@ const General = (state = initialState, action) => {
     case ACTION_TYPES.SELECT_EVENT:
       return { ...state, selectEvent: action.idEvent }
     case ACTION_TYPES.OPEN_MODAL:
-      return { ...state, isOpenModal: true }
+      return { ...state, isOpenModal: true, typeModal: action.typeWindow }
     case ACTION_TYPES.CLOSE_MODAL:
-      return { ...state, isOpenModal: false, selectEvent: 0 }
+      return { ...state, isOpenModal: false, selectEvent: 0, typeModal: '' }
     default:
       return state;
   }

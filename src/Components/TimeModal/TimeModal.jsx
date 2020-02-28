@@ -23,10 +23,12 @@ function TimeModal(props) {
   const [startTime, setStartTime] = useState(0);
   const [endTime, setEndTime] = useState(0);
   const [selectEvent, setSelectEvent] = useState(state.general.selectEvent);
+  const [typeModal, setTypeModal] = useState(state.general.typeModal); // editEvent, newEvent
 
   useEffect(() => {
     setSelectEvent(state.general.selectEvent);
-  }, [state.general.selectEvent]);
+    setTypeModal(state.general.typeModal);
+  }, [state.general.selectEvent, state.general.typeModal]);
 
   console.log(selectEvent);
 
@@ -50,6 +52,16 @@ function TimeModal(props) {
     props.onHide();
   };
 
+  function saveEvent() {
+    console.log('save');
+    props.onHide();
+  }
+
+  function deleteEvent() {
+    console.log('delete');
+    props.onHide();
+  }
+
   return (
     <Modal
       {...props}
@@ -59,7 +71,7 @@ function TimeModal(props) {
     >
       <Modal.Header closeButton>
         <Modal.Title id="contained-modal-title-vcenter">
-          Add new event
+          {typeModal === 'newEvent' ? 'Add new event' : 'Edit Event'}
         </Modal.Title>
       </Modal.Header>
       <Modal.Body>
@@ -133,7 +145,13 @@ function TimeModal(props) {
         </Form.Group>
       </Modal.Body>
       <Modal.Footer>
-        <Button onClick={() => addEvent()}>Add</Button>
+        {typeModal === 'newEvent' ? 
+          <Button onClick={() => addEvent()}>Add</Button> :
+          <>
+            <Button onClick={() => saveEvent()}>Save</Button>
+            <Button onClick={() => deleteEvent()}>Delete</Button>
+          </>
+        }
       </Modal.Footer>
     </Modal>
   );

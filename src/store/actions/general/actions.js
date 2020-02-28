@@ -111,10 +111,11 @@ function selectEvent(id) {
   }
 }
 
-function openModal() {
+function openModal(typeModal) {
   return dispatch => {
     dispatch({
       type: types.OPEN_MODAL,
+      typeWindow: typeModal,
     });
   }
 }
